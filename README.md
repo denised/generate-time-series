@@ -22,4 +22,4 @@ The code is currently "rough-draft" --- it works, but not all the features are i
 * Undo?  I'm sure someone will be annoyed that they lost their dataset or settings...
 * Integration with other tools, such as http://generatedata.com
 
-So far I've only tested this
+So far I've only tested this on Chrome and IE.
