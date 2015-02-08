@@ -16,7 +16,7 @@ define(["require", "exports"], function(require, exports) {
             };
             return RNG;
         })();
-        rngs.RNG = RNG;        
+        rngs.RNG = RNG;
         var Preset = (function (_super) {
             __extends(Preset, _super);
             function Preset(values) {
@@ -31,7 +31,7 @@ define(["require", "exports"], function(require, exports) {
             };
             return Preset;
         })(RNG);
-        rngs.Preset = Preset;        
+        rngs.Preset = Preset;
         var Uniform = (function (_super) {
             __extends(Uniform, _super);
             function Uniform(seed) {
@@ -43,7 +43,7 @@ define(["require", "exports"], function(require, exports) {
             };
             return Uniform;
         })(RNG);
-        rngs.Uniform = Uniform;        
+        rngs.Uniform = Uniform;
         var Normal = (function (_super) {
             __extends(Normal, _super);
             function Normal(mu, sigma) {
@@ -56,7 +56,7 @@ define(["require", "exports"], function(require, exports) {
             };
             return Normal;
         })(RNG);
-        rngs.Normal = Normal;        
+        rngs.Normal = Normal;
         var Pareto = (function (_super) {
             __extends(Pareto, _super);
             function Pareto(alpha) {
@@ -68,7 +68,7 @@ define(["require", "exports"], function(require, exports) {
             };
             return Pareto;
         })(RNG);
-        rngs.Pareto = Pareto;        
+        rngs.Pareto = Pareto;
     })(exports.rngs || (exports.rngs = {}));
     var rngs = exports.rngs;
     (function (seqs) {
@@ -102,7 +102,7 @@ define(["require", "exports"], function(require, exports) {
             };
             return Sequence;
         })();
-        seqs.Sequence = Sequence;        
+        seqs.Sequence = Sequence;
         var Constant = (function (_super) {
             __extends(Constant, _super);
             function Constant(value) {
@@ -122,12 +122,12 @@ define(["require", "exports"], function(require, exports) {
             };
             return Constant;
         })(Sequence);
-        seqs.Constant = Constant;        
+        seqs.Constant = Constant;
         var Cycle = (function (_super) {
             __extends(Cycle, _super);
             function Cycle(pattern) {
                 if (typeof pattern === "undefined") { pattern = [
-                    0, 
+                    0,
                     1
                 ]; }
                         _super.call(this);
@@ -149,7 +149,7 @@ define(["require", "exports"], function(require, exports) {
             };
             return Cycle;
         })(Sequence);
-        seqs.Cycle = Cycle;        
+        seqs.Cycle = Cycle;
         var Arithmetic = (function (_super) {
             __extends(Arithmetic, _super);
             function Arithmetic(start, step) {
@@ -182,7 +182,7 @@ define(["require", "exports"], function(require, exports) {
             };
             return Arithmetic;
         })(Sequence);
-        seqs.Arithmetic = Arithmetic;        
+        seqs.Arithmetic = Arithmetic;
         var Geometric = (function (_super) {
             __extends(Geometric, _super);
             function Geometric(start, ratio) {
@@ -215,7 +215,7 @@ define(["require", "exports"], function(require, exports) {
             };
             return Geometric;
         })(Sequence);
-        seqs.Geometric = Geometric;        
+        seqs.Geometric = Geometric;
         var Random = (function (_super) {
             __extends(Random, _super);
             function Random(rng, min, max) {
@@ -260,7 +260,7 @@ define(["require", "exports"], function(require, exports) {
             };
             return Random;
         })(Sequence);
-        seqs.Random = Random;        
+        seqs.Random = Random;
         var RandomWalk = (function (_super) {
             __extends(RandomWalk, _super);
             function RandomWalk(rng, start, min, max) {
@@ -318,7 +318,7 @@ define(["require", "exports"], function(require, exports) {
             };
             return RandomWalk;
         })(Sequence);
-        seqs.RandomWalk = RandomWalk;        
+        seqs.RandomWalk = RandomWalk;
         var Combine = (function (_super) {
             __extends(Combine, _super);
             function Combine(seqs) {
@@ -344,7 +344,7 @@ define(["require", "exports"], function(require, exports) {
             };
             return Combine;
         })(Sequence);
-        seqs.Combine = Combine;        
+        seqs.Combine = Combine;
         var Repeat = (function (_super) {
             __extends(Repeat, _super);
             function Repeat(seq, count) {
@@ -372,7 +372,7 @@ define(["require", "exports"], function(require, exports) {
             };
             return Repeat;
         })(Sequence);
-        seqs.Repeat = Repeat;        
+        seqs.Repeat = Repeat;
         function _isArray(value) {
             return Object.prototype.toString.call(value) === '[object Array]';
         }
@@ -386,7 +386,7 @@ define(["require", "exports"], function(require, exports) {
             };
             return Normalizer;
         })();
-        norms.Normalizer = Normalizer;        
+        norms.Normalizer = Normalizer;
         var Identity = (function (_super) {
             __extends(Identity, _super);
             function Identity() {
@@ -398,7 +398,7 @@ define(["require", "exports"], function(require, exports) {
             };
             return Identity;
         })(Normalizer);
-        norms.Identity = Identity;        
+        norms.Identity = Identity;
         var Minmax = (function (_super) {
             __extends(Minmax, _super);
             function Minmax(min, max) {
@@ -429,7 +429,7 @@ define(["require", "exports"], function(require, exports) {
             };
             return Minmax;
         })(Normalizer);
-        norms.Minmax = Minmax;        
+        norms.Minmax = Minmax;
         var Sum = (function (_super) {
             __extends(Sum, _super);
             function Sum(sum) {
@@ -449,8 +449,7 @@ define(["require", "exports"], function(require, exports) {
             };
             return Sum;
         })(Normalizer);
-        norms.Sum = Sum;        
+        norms.Sum = Sum;
     })(exports.norms || (exports.norms = {}));
     var norms = exports.norms;
 })
-//@ sourceMappingURL=file:////Users/alankang/Devs/prjs/dgen/src/dgen.js.map
