@@ -1,0 +1,84 @@
+ul {
+	/* there should be some simple way to turn the lot of these off */
+	-webkit-padding-start: 0;
+	padding: 0;
+}
+body {
+	/* jquery-ui theme the whole thing (why don't they make that easy?) */
+	font-family: Verdana,Arial,sans-serif;
+	background: #f8f8f8;
+	color: #222222;
+}
+body > * {
+	margin: 4px;
+}
+select {
+  width: 200px;
+}
+#placeholder {
+	width: 90%;
+	background: white;
+	margin: 2px;
+}
+fieldset {
+	float: left;
+	margin-bottom: 2px;
+}
+legend {
+	font-size: 80%;
+}
+.footer {
+	font-size: 80%;
+	margin-top: 20px;
+	color: #444444;
+}
+.footer p {
+	margin: 1px;
+}
+button {
+	margin-top: 4px;
+	margin-bottom: 4px;
+}
+button[icon] {
+	width: 30px;
+	height: 30px;
+}
+
+
+.ui-datepicker {
+	font-size: 70% !important;
+}
+.sortable {
+	list-style-type: none;
+}
+
+#component-list > li {
+	border: 1px solid #888888;
+	margin: 1px;
+	padding: 2px;
+	font-size: 80%;
+}
+#component-list input, #component-list select {
+	width: 75px;
+	padding: 1px;
+}
+
+
+/* Contain floats *and margins*. */
+.cfm:before,
+.cfm:after {
+  content: ' ';
+  display: table;
+}
+.cfm:after {
+  clear: both;
+}
+
+
+.pop {
+	color: #c50d0d !important;
+}
+.ui-icon-inline {
+	display: inline-block !important;
+	padding: 2px;
+}

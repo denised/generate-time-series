@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Time Series Sandbox</title>
+  <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+  <link href="css/jquery-ui.min.css" rel="stylesheet" />
+  <link href="css/app.css" rel="stylesheet" />
+
+  <script src="js/jquery.min.js"></script>
+  <script src="js/jquery-ui.min.js"></script>
+  <script src="js/jquery.flot.min.js"></script>
+  <script src="js/jquery.flot.time.min.js"></script>
+  <script src="js/require.js"></script>
+  <script src="js/app.js"></script>
+</head>
+<body>
+  <h1>Time Series Sandbox</h1>
+  <p>Select from the options below to generate time series with the corresponding behavior.</p>
+  <!-- <p> Todo: allow addition, deletion, or modification of individual or ranges of data points </p> -->
+
+  <div class="plot-container">
+      <div id="placeholder" class="placeholder"></div>
+  </div>
+
+  <div class="cfm">
+    <fieldset class="ui-corner-all">
+        <legend>Time Period</legend>
+        <p>From:
+        <input type="text" id="min-time" class="datepicker"></p>
+        <p>To:
+        <input type="text" id="max-time" class="datepicker"></p>
+    </fieldset>
+
+    <fieldset class="ui-corner-all">
+      <legend>Data Point Frequency</legend>
+
+      <select name="data-point-frequency" id="data-point-frequency" class="select">
+        <option>hourly</option>
+        <option>daily</option>
+        <option>weekly</option>
+        <option selected="selected">monthly</option>
+        <option>yearly</option>
+      </select>
+    </fieldset>
+
+    <fieldset class="ui-corner-all">
+      <legend>Series Properties</legend>
+      <!-- TODO: wire min & max into the dgen norm capability -->
+      <p>Min Value <input type="number" name="data-low" id="data-low" value="0.0" disabled></p>
+      <p>Max Value <input type="number" name="data-high" id="data-high" value="100.0" disabled></p>
+      <p><input type="checkbox" name="ints-only" id="ints-only"> Integer values only</p>
+    </fieldset>
+
+    <fieldset class="ui-corner-all">
+      <legend>Data Components (add 'em up!)</legend>
+      <ul id="component-list" class="sortable">
+        <li>  <!-- this is a template that will be cloned.  no id's allowed -->
+          <!-- <span class="ui-icon ui-icon-arrowthick-2-n-s item-move ui-icon-inline"></span> -->
+          <select class="component-type">
+            <option value="baseline">baseline</option>
+            <option value="slope" selected="selected">slope</option>
+            <option value="noise">noise</option>
+            <option value="walk">random walk</option>
+            <!-- TODO: add cyclic option -->
+            <option value="cyclic" diabled>cyclic</option>
+          </select>
+          <span class="param" param="period"><span class="paramname">Param3</span>
+            <select>
+              <option value="daily">daily</option>
+              <option value="weekly">weekly</option>
+              <option value="monthly" selected="selected">monthly</option>
+              <option value="yearly">yearly</option>
+            </select>
+          </span>
+          <span class="param" param="distribution"><span class="paramname">Param4</span>
+            <select>
+              <option value="Uniform">uniform</option>
+              <option value="Normal" selected="selected">normal</option>
+            </select>
+          </span>
+          <span class="param" param="param1"><span class="paramname">Param1</span><input type="number"></span>
+          <span class="param" param="param2"><span class="paramname">Param2</span><input type="number"></span>
+          <span class="ui-icon ui-icon-close item-close ui-icon-inline"></span>
+        </li>
+      </ul>
+      <span id="add-item" class="ui-icon ui-icon-plusthick"></span>
+    </fieldset>
+
+    <fieldset class="ui-corner-all">
+      <legend>Download Format</legend>
+      <select name="file-format" id="file-format" class="select">
+        <option value="flot" selected="selected">flot</option>
+        <option value="csv">csv</option>
+      </select>
+    </fieldset>
+  </div>
+
+  <button id="generate" class="pop">Generate my Data!</button>
+  <button id="download" class="pop">Download my Data!</button>
+  <button id="show" class="pop">Show me the Code!</button>
+
+  <div class="footer">
+    <p>Kudos to <a href="https://github.com/akngs/dgen">ngen</a> and
+    <a href="http://www.flotcharts.org/">flot</a> for creating such wonderful tools.</a></p>
+    <p style="font-size:80%">Copyright (c) 2015 Denise Draper.  Published under MIT license.  Source on <a href="https://github.com/denised/generate-time-series">github</a>.</p>
+  </div>
+</body>
+</html>
