@@ -2,9 +2,9 @@
 var app = {}; // move the decl inside the closure if you'd rather it were private.
 
 require(
-    ["js/random","js/dgen"],
+    ["js/dgen"],
 
-    function( s1, dgen ) {
+    function( dgen ) {
         "use strict";
 
         app.theSeries = [];
@@ -29,7 +29,7 @@ require(
                 param2: ["and", 2]
             },
             cyclic: {
-                period: ["period", "monthly"],
+                period: ["period", "yearly"],
                 param1: ["spread", 10]
             }
         };
@@ -42,7 +42,8 @@ require(
             },
             colors: ["#c50d0d"],
             grid: {
-                borderWidth: 1
+                borderWidth: 1,
+                hoverable: true
             }
         };
         app.clonable = undefined;
@@ -73,8 +74,9 @@ require(
             $( "#max-time" ).val( app.dateString( Date.now() ));
             app.updateComponent(false, $("#component-list li"));
 
-            // make the plot area have a pleasing shape for time series
+            // init plot area
             $("#placeholder").height( Math.floor( $("#placeholder").width() * 0.35) );
+            $("#placeholder").on("plothover", app.updateTooltip);
 
             // wire the buttons
             $("#generate").on("click", app.generate );
@@ -120,6 +122,11 @@ require(
         // TODO: this is a crude way to generate time sequences, which does not take into account
         // variability of month lengths, leap years, etc.
         // Should find a package that already does this somewhere...
+        // But note that the data series generaters currently *are* assuming that the step sizes
+        // are mathematically fixed.  Need to think about how that would work...
+        //
+        // (Missing data is easier: just generate all the data then delete the bits you don't want.)
+        //
         app.stepSize = 0;
         app.stepSizes = {
             hourly:             60 * 60 * 1000,
@@ -156,8 +163,9 @@ require(
                 var param2 = Number( $(this).find("[param=param2] input").val() );
                 var period = $(this).find("[param=period] select").val();
                 var distribution = $(this).find("[param=distribution] select").val();
-                var step;
+                var step, scaled;
 
+                // TODO: clearly could make this into a pluggable architecture...
                 switch( gentype ) {
                     case "baseline":
                         result.push( new dgen.seqs.Constant( param1 ));
@@ -176,6 +184,15 @@ require(
                     case "walk":
                         result.push( new dgen.seqs.RandomWalk( new dgen.rngs.Uniform(), 0, param1, param2 ));
                         break;
+                    case "cyclic":
+                        // period for this function is defined by the ratio of requested periodicity to the data's
+                        // frequency.
+                        step = 2 * Math.PI * app.stepSize / app.stepSizes[period];
+                        scaled = function(x) {
+                            // transform the Sine function so that it has a period of step, and amplitude of spread.
+                            return (param1/2) * Math.sin( step*x );
+                        }
+                        result.push( new dgen.seqs.Arithmetic(0,1).setMap(scaled) );
                     default:
                         break;
                 }
@@ -277,6 +294,21 @@ require(
                 }
             })
             return x;
+        };
+
+        var tooltip = $("#tooltip");
+        app.updateTooltip = function(event, pos, item) {
+            if ( item ) {
+                tooltip.html(new Date(item.datapoint[0]).toUTCString() + "<br>"  + item.datapoint[1] );
+                tooltip.css({
+                    left: pos.pageX,
+                    top: pos.pageY-55
+                })
+                tooltip.show();
+            }
+            else {
+                tooltip.hide();
+            }
         };
 
         $("document").ready( app.init );

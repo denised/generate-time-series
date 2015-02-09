@@ -6,6 +6,8 @@ This is a sandbox for playing with the series generator from https://github.com/
 
 The code is currently "rough-draft" --- it works, but not all the features are implemented, and more could be added.  Feel free to help out :-)
 
+Try it out live at http://denised.github.io/generate-time-series/
+
 ##  Priority Todo's
 
 * Implement cyclic
@@ -23,3 +25,4 @@ The code is currently "rough-draft" --- it works, but not all the features are i
 * Integration with other tools, such as http://generatedata.com
 
 So far I've only tested this on Chrome and IE.
+

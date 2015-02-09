@@ -11,6 +11,7 @@
   <script src="js/jquery-ui.min.js"></script>
   <script src="js/jquery.flot.min.js"></script>
   <script src="js/jquery.flot.time.min.js"></script>
+  <script src="js/random.js"></script>
   <script src="js/require.js"></script>
   <script src="js/app.js"></script>
 </head>
@@ -21,6 +22,7 @@
 
   <div class="plot-container">
       <div id="placeholder" class="placeholder"></div>
+      <div id="tooltip" class="tooltip ui-corner-all"></div>
   </div>
 
   <div class="cfm">
@@ -47,8 +49,10 @@
     <fieldset class="ui-corner-all">
       <legend>Series Properties</legend>
       <!-- TODO: wire min & max into the dgen norm capability -->
+      <!--
       <p>Min Value <input type="number" name="data-low" id="data-low" value="0.0" disabled></p>
       <p>Max Value <input type="number" name="data-high" id="data-high" value="100.0" disabled></p>
+      -->
       <p><input type="checkbox" name="ints-only" id="ints-only"> Integer values only</p>
     </fieldset>
 
@@ -101,7 +105,7 @@
   <button id="show" class="pop">Show me the Code!</button>
 
   <div class="footer">
-    <p>Kudos to <a href="https://github.com/akngs/dgen">ngen</a> and
+    <p>Kudos to <a href="https://github.com/akngs/dgen">dgen</a> and
     <a href="http://www.flotcharts.org/">flot</a> for creating such wonderful tools.</a></p>
     <p style="font-size:80%">Copyright (c) 2015 Denise Draper.  Published under MIT license.  Source on <a href="https://github.com/denised/generate-time-series">github</a>.</p>
   </div>
