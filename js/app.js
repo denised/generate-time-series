@@ -61,6 +61,9 @@ require(
             //        handle : ".item-move"
             //    });
 
+            // connect options to the range
+            $("#data-point-frequency").on("selectmenuchange", app.showOptions);
+
             // wire the inside of the doohickey
             $(".item-close").on("click", app.removeComponent );
             $(".component-type").on("change", app.updateComponent );
@@ -73,6 +76,8 @@ require(
             $( "#min-time" ).val( "01/01/2012" );
             $( "#max-time" ).val( app.dateString( Date.now() ));
             app.updateComponent(false, $("#component-list li"));
+            $( "#weekday-option" ).hide();
+            $( "#daytime-option" ).hide();
 
             // init plot area
             $("#placeholder").height( Math.floor( $("#placeholder").width() * 0.35) );
@@ -92,6 +97,9 @@ require(
             app.theGenerators = app.createGenerators();
             app.theDataVector = new dgen.seqs.Combine( app.theGenerators ).array( app.theTimeVector.length );
             app.theSeries = app.zip( app.theTimeVector, app.theDataVector, $("#ints-only").prop("checked"));
+            if ( $("#weekdays-only") || $("#daytime-only") ) {
+                app.theSeries = app.filter( app.theSeries );
+            }
 
             $.plot( $("#placeholder"), [app.theSeries], app.plotOptions );
         };
@@ -230,6 +238,32 @@ require(
             });
         };
 
+        var isweekday = function( dt ) { var x = new Date(dt).getDay(); return (x > 0 && x < 6); };
+        var isdaytime = function( dt ) { var x = new Date(dt).getHours(); return ( x > 7 && x < 17 ); };
+        var isboth = function( dt ) { return (isweekday(dt) && isdaytime(dt)); };
+        app.filter = function( ary ) {
+            var filterfn;
+            var chosenOptions = "" + ($("#weekdays-only").prop("checked") ? "w" : "W") +
+                                     ($("#daytime-only").prop("checked") ? "d" : "D" );
+            switch ($("#data-point-frequency").val()) {
+                case "hourly" :
+                    filterfn = {"wd": isboth, "wD": isweekday, "Wd": isdaytime, "WD": false }[chosenOptions];
+                    break;
+                case "daily" :
+                    filterfn = {"wd": isweekday, "wD": isweekday, "Wd": false, "WD": false }[chosenOptions];
+                    break;
+                default :
+                    filterfn = false;
+                    break;
+            }
+
+            if ( filterfn ) {
+                return ary.filter( function( item ) { return filterfn(item[0]); });
+            }
+            else
+                return ary;
+        };
+
 
         app.toCSV = function( series, withtimes ) {
             var results = "";
@@ -310,6 +344,23 @@ require(
                 tooltip.hide();
             }
         };
+
+
+        app.showOptions = function() {
+            var freq = $("#data-point-frequency").val();
+            if ( freq == "hourly" ) {
+                $("#daytime-option").show();
+                $("#weekday-option").show();
+            }
+            else if ( freq == "daily" ) {
+                $("#daytime-option").hide();
+                $("#weekday-option").show();
+            }
+            else {
+                $("#daytime-option").hide();
+                $("#weekday-option").hide();
+            }
+        }
 
         $("document").ready( app.init );
     }

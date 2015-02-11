@@ -8,13 +8,7 @@ The code is currently "rough-draft" --- it works, but not all the features are i
 
 Try it out live at http://denised.github.io/generate-time-series/
 
-##  Priority Todo's
-
-* Implement cyclic
-* Add useful time modifiers, such as weekday-only, daytime only.
-* Generally improve time point generation, e.g. "monthly" should be the nth day of successive months, not 30 day increments.
-
-## Wishes (non-priority Todo's)
+## Future Ideas
 
 * Manage seeds to make repeatable sequences.
 * Add additional generators, options, from dgen
