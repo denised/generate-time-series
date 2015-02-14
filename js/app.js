@@ -82,6 +82,9 @@ require(
             // init plot area
             $("#placeholder").height( Math.floor( $("#placeholder").width() * 0.35) );
             $("#placeholder").on("plothover", app.updateTooltip);
+            $(window).resize( function() {
+                $("#placeholder").height( Math.floor($("#placeholder").width() * 0.35));
+            });
 
             // wire the buttons
             $("#generate").on("click", app.generate );
@@ -97,7 +100,7 @@ require(
             app.theGenerators = app.createGenerators();
             app.theDataVector = new dgen.seqs.Combine( app.theGenerators ).array( app.theTimeVector.length );
             app.theSeries = app.zip( app.theTimeVector, app.theDataVector, $("#ints-only").prop("checked"));
-            if ( $("#weekdays-only") || $("#daytime-only") ) {
+            if ( $("#weekdays-only").prop("checked") || $("#daytime-only").prop("checked") ) {
                 app.theSeries = app.filter( app.theSeries );
             }
 
@@ -127,11 +130,11 @@ require(
         // data generation
 
         // Generate the time sequence itself
-        // TODO: this is a crude way to generate time sequences, which does not take into account
-        // variability of month lengths, leap years, etc.
-        // Should find a package that already does this somewhere...
-        // But note that the data series generaters currently *are* assuming that the step sizes
-        // are mathematically fixed.  Need to think about how that would work...
+        // TODO: this is a *very* crude way of generating time sequences that does not take into
+        // account the variability of month lengths, leap years, etc.  Obvioiusly, we could
+        // increment the appropriate Date field instead.   If we do that, a fine point: currently
+        // the data generators also assume perfectly fixed step sizes, and we might have to
+        // tweak them to behave correctly if the steps are not uniform.
         //
         // (Missing data is easier: just generate all the data then delete the bits you don't want.)
         //
@@ -160,7 +163,6 @@ require(
 
 
         // Generate the data for the time sequence.
-        // TODO: cyclic
         app.createGenerators = function( ) {
             var result = [];
             var count = app.theTimeVector.length;
