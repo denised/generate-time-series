@@ -25,8 +25,8 @@ require(
                 param1: ["spread", 3]
             },
             walk: {
-                param1: ["between", -2],
-                param2: ["and", 2]
+                param1: ["maxspread", 10],
+                param2: ["maxstep", 1]
             },
             cyclic: {
                 period: ["period", "yearly"],
@@ -186,13 +186,15 @@ require(
                         break;
                     case "noise":
                         var rng = ( distribution == "Uniform" ?
-                                        app.Uniform( param1 ) :
+                                        app.Uniform( -param1/2, param1/2 ) :
                                         // for normal, we interpret spread to be two standard deviations
                                         new dgen.rngs.Normal( 0, param1/2 ) );
                         result.push( new dgen.seqs.Random( rng ));
                         break;
                     case "walk":
-                        result.push( new dgen.seqs.RandomWalk( new dgen.rngs.Uniform(), 0, param1, param2 ));
+
+                        var rnd = app.Uniform( 0, param2 );
+                        result.push( new dgen.seqs.RandomWalk( rnd, 0, -param1/2, param1/2 ));
                         break;
                     case "cyclic":
                         // period for this function is defined by the ratio of requested periodicity to the data's
@@ -210,14 +212,14 @@ require(
             return result;
         };
 
-        // Uniform returns 0..1.  Scale so that it returns -width/2 ... width/2
+        // Uniform returns 0..1.  Translate & scale so that it returns minval..maxval
 
-        app.Uniform = function( width ) {
+        app.Uniform = function( minval, maxval ) {
             var embedded = new dgen.rngs.Uniform();
-            var translate = width / 2;
+            var width = maxval - minval;
             return { next: function() {
                 var x = embedded.next();
-                return (x * width) - translate;
+                return (x * width) + minval;
             }}
         };
 
