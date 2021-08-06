@@ -20,3 +20,5 @@ Try it out live at http://denised.github.io/generate-time-series/
 
 So far I've only tested this on Chrome and IE.
 
+
+I was here!
