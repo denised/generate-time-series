@@ -31,6 +31,14 @@ require(
             cyclic: {
                 period: ["period", "yearly"],
                 param1: ["spread", 10]
+            },
+            exp: {
+                param1: ["from", 0],
+                param2: ["by", 1.2]
+            },
+            log: {
+                param1: ["from", 10],
+                param2: ["to", 40]
             }
         };
         app.plotOptions = {
@@ -205,6 +213,10 @@ require(
                             return (param1/2) * Math.sin( step*x );
                         }
                         result.push( new dgen.seqs.Arithmetic(0,1).setMap(scaled) );
+                    case "exp":
+                        result.push( new dgen.seqs.Geometric( param1, param2 ));
+                        break;
+                    case "log":
                     default:
                         break;
                 }
